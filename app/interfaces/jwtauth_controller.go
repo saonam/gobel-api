@@ -13,11 +13,11 @@ type JWTAuthController struct {
 }
 
 // NewJWTAuthController creates an JWTAuthController.
-func NewJWTAuthController(conn *sql.DB, logger usecases.Logger) *JWTAuthController {
+func NewJWTAuthController(connMySQL *sql.DB, logger usecases.Logger) *JWTAuthController {
 	return &JWTAuthController{
 		JWTAuthInteractor: usecases.JWTAuthInteractor{
 			AdminRepository: &AdminRepository{
-				Conn: conn,
+				ConnMySQL: connMySQL,
 			},
 			JSONResponse: &JSONResponse{},
 			Logger:       logger,

@@ -9,19 +9,24 @@ import (
 	"github.com/bmf-san/gobel-api/app/middleware"
 	"github.com/bmf-san/gobel-api/app/usecases"
 	"github.com/bmf-san/goblin"
+	"github.com/go-redis/redis/v7"
 )
 
 // Dispatch handle routing
-func Dispatch(conn *sql.DB, logger usecases.Logger) {
-	jwtAuthController := interfaces.NewJWTAuthController(conn, logger)
-	postController := interfaces.NewPostController(conn, logger)
-	commentController := interfaces.NewCommentController(conn, logger)
-	categoryController := interfaces.NewCategoryController(conn, logger)
-	tagController := interfaces.NewTagController(conn, logger)
+func Dispatch(connMySQL *sql.DB, connRedis *redis.Client, logger usecases.Logger) {
+	asset := middleware.NewAsset(connRedis, logger)
+	// TODO: access log middleware
+	publicMws := middleware.NewMiddlewares(asset.CORS)
+	privateMws := middleware.NewMiddlewares(asset.CORS, asset.Auth)
+
+	jwtAuthController := interfaces.NewJWTAuthController(connMySQL, logger)
+	authController := interfaces.NewAuthController(connMySQL, connRedis, logger)
+	postController := interfaces.NewPostController(connMySQL, logger)
+	commentController := interfaces.NewCommentController(connMySQL, logger)
+	categoryController := interfaces.NewCategoryController(connMySQL, logger)
+	tagController := interfaces.NewTagController(connMySQL, logger)
 
 	r := goblin.NewRouter()
-
-	publicMws := middleware.NewMiddlewares(middleware.CORS)
 
 	r.GET("/posts", publicMws.Then(postController.Index))
 	r.GET("/posts/categories/:name", publicMws.Then(postController.IndexByCategory))
@@ -37,7 +42,9 @@ func Dispatch(conn *sql.DB, logger usecases.Logger) {
 
 	r.POST("/authenticate", publicMws.Then(jwtAuthController.SignIn))
 
-	privateMws := middleware.NewMiddlewares(middleware.CORS, middleware.Auth)
+	r.POST("/signin", publicMws.Then(authController.SignIn))
+	//  TODO:
+	// r.POST("/signout", publicMws.Then(authController.SignOut))
 
 	r.GET("/private/posts", privateMws.Then(postController.IndexPrivate))
 	r.GET("/private/posts/:id", privateMws.Then(postController.ShowPrivate))

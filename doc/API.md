@@ -184,8 +184,8 @@ Public API is open api that does not required authentication.
 | :----- | :---------------------- | :----------------------------------- |
 | POST   | /authenticate           | Get a json web token by credentials. |
 | GET    | /posts                  | Get all publish posts.               |
-| GET    | /posts/categories/:name | Get all publish posts by cagtegory. |
-| GET    | /posts/tags/:name       | Get all publish posts by tag.       |
+| GET    | /posts/categories/:name | Get all publish posts by cagtegory.  |
+| GET    | /posts/tags/:name       | Get all publish posts by tag.        |
 | GET    | /posts/:title           | Get the specified post by title.     |
 | POST   | /posts/:title/comments  | Store a newly comment.               |
 | GET    | /categories             | Get all categories.                  |
@@ -193,8 +193,7 @@ Public API is open api that does not required authentication.
 | GET    | /tags                   | Get all tags.                        |
 | GET    | /tags/:name             | Get the specified tag by name.       |
 
-// TODO: search api
-
+// TODO: fix →signin
 ## Authentication
 ### Get a json web token by credentials
 #### Endpoint
@@ -313,38 +312,39 @@ Public API is open api that does not required authentication.
 
 Private API is closed api that does required authentication.
 
-| Method |       Endpoint       |             Description              |
-| :----- | :------------------- | :----------------------------------- |
-| GET    | /posts               | Get all posts.                       |
-| GET    | /posts/:id           | Get the specified post by id.        |
-| POST   | /posts               | Store a newly post.                  |
-| PATCH  | /posts/:id           | Update the specified post.           |
-| DELETE | /posts/:id           | Remove the specified post.           |
-| GET    | /comments            | Get all comments.                    |
-| GET    | /comments/:id        | Get the specified comment by id.     |
-| PATCH  | /comments/:id/status | Update the specified comment status. |
-| GET    | /categories          | Get all categories.                  |
-| GET    | /categories/:id      | Get the specified category by id.    |
-| POST   | /categories          | Store a newly categories.            |
-| PATCH  | /categories/:id      | Update the specified category.       |
-| DELETE | /categories/:id      | Remove the specified category.       |
-| GET    | /tags                | Get all tags.                        |
-| GET    | /tags/:id            | Get the specified tag by id.         |
-| POST   | /tags                | Store a newly tag.                   |
-| PATCH  | /tags/:id            | Update the specified tag.            |
-| DELETE | /tags/:id            | Remove the specified tag.            |
+| Method |           Endpoint            |             Description              |
+| :----- | :---------------------------- | :----------------------------------- |
+| GET    | /private/posts                | Get all posts.                       |
+| GET    | /private/posts/:id            | Get the specified post by id.        |
+| POST   | /private/posts                | Store a newly post.                  |
+| PATCH  | /private/posts/:id            | Update the specified post.           |
+| DELETE | /private//posts/:id           | Remove the specified post.           |
+| GET    | /private//comments            | Get all comments.                    |
+| GET    | /private//comments/:id        | Get the specified comment by id.     |
+| PATCH  | /private//comments/:id/status | Update the specified comment status. |
+| GET    | /private//categories          | Get all categories.                  |
+| GET    | /private//categories/:id      | Get the specified category by id.    |
+| POST   | /private//categories          | Store a newly categories.            |
+| PATCH  | /private//categories/:id      | Update the specified category.       |
+| DELETE | /private//categories/:id      | Remove the specified category.       |
+| GET    | /private//tags                | Get all tags.                        |
+| GET    | /private//tags/:id            | Get the specified tag by id.         |
+| POST   | /private//tags                | Store a newly tag.                   |
+| PATCH  | /private//tags/:id            | Update the specified tag.            |
+| DELETE | /private//tags/:id            | Remove the specified tag.            |
 
 ### Get all posts
 #### Endpoint
-`GET /posts`
+`GET /private/posts`
 
 #### Header
-|         Name         |        Description         | Example |
-| :------------------- | :------------------------- | :------ |
-| Pagination-Count     | A count of records         | 100     |
-| Pagination-PageCount | A count of page            | 10      |
-| Pagination-Page      | A current page number      | 5       |
-| Pagination-Limit     | A limit of number per page | 10      |
+|         Name         |            Description            |        Example        |
+| :------------------- | :-------------------------------- | :-------------------- |
+| Authorization        | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+| Pagination-Count     | A count of records                | 100                   |
+| Pagination-PageCount | A count of page                   | 10                    |
+| Pagination-Page      | A current page number             | 5                     |
+| Pagination-Limit     | A limit of number per page        | 10                    |
 
 #### Query Parameters
 | Name  |  Type   | Required |       Description        |
@@ -354,7 +354,7 @@ Private API is closed api that does required authentication.
 
 ### Get the specified post by id
 #### Endpoint
-`GET /posts/:id`
+`GET /private/posts/:id`
 
 #### Path Parameters
 | Name | Type | Required |   Description    |
@@ -363,7 +363,7 @@ Private API is closed api that does required authentication.
 
 ### Store a newly comment
 #### Endpoint
-`POST /comment`
+`POST /private/comment`
 
 #### Request bodies
 ```json
@@ -374,7 +374,7 @@ Private API is closed api that does required authentication.
 ```
 ### Store a newly post
 #### Endpoint
-`POST /posts`
+`POST /private/posts`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -404,7 +404,7 @@ Private API is closed api that does required authentication.
 
 ### Update the specified post
 #### Endpoint
-`PATCH /posts/:id`
+`PATCH /private/posts/:id`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -439,7 +439,7 @@ Private API is closed api that does required authentication.
 
 ### Remove the specified post
 #### Endpoint
-`DELETE /posts/:id`
+`DELETE /private/posts/:id`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -453,7 +453,7 @@ Private API is closed api that does required authentication.
 
 ### Get all comments
 #### Endpoint
-`GET /comments`
+`GET /private/comments`
 
 #### Header
 |         Name         |        Description         | Example |
@@ -471,7 +471,7 @@ Private API is closed api that does required authentication.
 
 ### Get the specified comment by id
 #### Endpoint
-`GET /comments/:id`
+`GET /private/comments/:id`
 
 #### Path Parameters
 | Name | Type | Required |     Description     |
@@ -480,7 +480,7 @@ Private API is closed api that does required authentication.
 
 ## Update the specified comment status
 #### Endpoint
-`PATCH /comments/:id/status`
+`PATCH /private/comments/:id/status`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -501,7 +501,7 @@ Private API is closed api that does required authentication.
 
 ### Get all categories
 #### Endpoint
-`GET /categories`
+`GET /private/categories`
 
 #### Header
 |         Name         |        Description         | Example |
@@ -519,7 +519,7 @@ Private API is closed api that does required authentication.
 
 ### Get the specified category by id
 #### Endpoint
-`GET /categories/:id`
+`GET /private/categories/:id`
 
 #### Path Parameters
 | Name | Type | Required |     Description      |
@@ -528,7 +528,7 @@ Private API is closed api that does required authentication.
 
 ### Get all tags
 #### Endpoint
-`GET /tags`
+`GET /private/tags`
 
 #### Header
 |         Name         |        Description         | Example |
@@ -546,7 +546,7 @@ Private API is closed api that does required authentication.
 
 ### Get the specified tag by id
 #### Endpoint
-`GET /tags/:id`
+`GET /private/tags/:id`
 
 #### Path Parameters
 | Name | Type | Required |   Description   |
@@ -555,7 +555,7 @@ Private API is closed api that does required authentication.
 
 ### Store a newly category
 #### Endpoint
-`POST /categories`
+`POST /private/categories`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -571,7 +571,7 @@ Private API is closed api that does required authentication.
 
 ### Update the specified category
 #### Endpoint
-`PATCH /categories/:id`
+`PATCH /private/categories/:id`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -592,7 +592,7 @@ Private API is closed api that does required authentication.
 
 ### Remove the specified category
 #### Endpoint
-`PATCH /categories/:id`
+`PATCH /private/categories/:id`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -606,7 +606,7 @@ Private API is closed api that does required authentication.
 
 ### Store a newly tag
 #### Endpoint
-`POST /tags`
+`POST /private/tags`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -622,7 +622,7 @@ Private API is closed api that does required authentication.
 
 ### Update the specified tag
 #### Endpoint
-`PATCH /tags/:id`
+`PATCH /private/tags/:id`
 
 #### Header
 |     Name      |            Description            |        Example        |
@@ -643,7 +643,7 @@ Private API is closed api that does required authentication.
 
 ### Remove the specified tag
 #### Endpoint
-`DELETE /tags/:id`
+`DELETE /private/tags/:id`
 
 #### Header
 |     Name      |            Description            |        Example        |

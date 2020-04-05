@@ -14,11 +14,11 @@ type PostController struct {
 }
 
 // NewPostController creates a PostController.
-func NewPostController(conn *sql.DB, logger usecases.Logger) *PostController {
+func NewPostController(connMySQL *sql.DB, logger usecases.Logger) *PostController {
 	return &PostController{
 		PostInteractor: usecases.PostInteractor{
 			PostRepository: &PostRepository{
-				Conn: conn,
+				ConnMySQL: connMySQL,
 			},
 			JSONResponse: &JSONResponse{},
 			Logger:       logger,
