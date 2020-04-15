@@ -1,6 +1,6 @@
 package usecases
 
-// A RequestCredential represents the singular of jwtauth for jwtauth.
+// A RequestCredential represents the singular of credential.
 type RequestCredential struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`

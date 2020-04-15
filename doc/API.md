@@ -180,24 +180,23 @@ Content-Type: application/json
 # Public API
 Public API is open api that does not required authentication.
 
-| Method |        Endpoint         |             Description              |
-| :----- | :---------------------- | :----------------------------------- |
-| POST   | /authenticate           | Get a json web token by credentials. |
-| GET    | /posts                  | Get all publish posts.               |
-| GET    | /posts/categories/:name | Get all publish posts by cagtegory.  |
-| GET    | /posts/tags/:name       | Get all publish posts by tag.        |
-| GET    | /posts/:title           | Get the specified post by title.     |
-| POST   | /posts/:title/comments  | Store a newly comment.               |
-| GET    | /categories             | Get all categories.                  |
-| GET    | /categories/:name       | Get the specified category by name.  |
-| GET    | /tags                   | Get all tags.                        |
-| GET    | /tags/:name             | Get the specified tag by name.       |
+| Method |        Endpoint         |             Description             |
+| :----- | :---------------------- | :---------------------------------- |
+| POST   | /signin                 | Get a token by credentials.         |
+| GET    | /posts                  | Get all publish posts.              |
+| GET    | /posts/categories/:name | Get all publish posts by cagtegory. |
+| GET    | /posts/tags/:name       | Get all publish posts by tag.       |
+| GET    | /posts/:title           | Get the specified post by title.    |
+| POST   | /posts/:title/comments  | Store a newly comment.              |
+| GET    | /categories             | Get all categories.                 |
+| GET    | /categories/:name       | Get the specified category by name. |
+| GET    | /tags                   | Get all tags.                       |
+| GET    | /tags/:name             | Get the specified tag by name.      |
 
-// TODO: fix →signin
 ## Authentication
-### Get a json web token by credentials
+### Get a token by credentials
 #### Endpoint
-`POST /authenticate`
+`POST /signin`
 
 #### Request bodies
 ```json

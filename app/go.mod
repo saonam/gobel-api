@@ -3,10 +3,7 @@ module github.com/bmf-san/gobel-api/app
 go 1.13
 
 require (
-	github.com/DATA-DOG/go-sqlmock v1.3.3
 	github.com/bmf-san/goblin v0.0.0-20200105095952-e37989167161
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/go-redis/redis v6.15.7+incompatible
 	github.com/go-redis/redis/v7 v7.2.0
 	github.com/go-sql-driver/mysql v1.4.1
 	github.com/pkg/errors v0.9.1

@@ -4,10 +4,10 @@ import (
 	"net/http"
 )
 
-// A JSONResponse is a presenter for jwt authentication.
+// A JSONResponse is a presenter for response.
 type JSONResponse struct{}
 
-// Success200 responses a success response for jwt authentication.
+// Success200 responses a success response for JSONResponse.
 func (ap *JSONResponse) Success200(w http.ResponseWriter, res []byte) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -15,7 +15,7 @@ func (ap *JSONResponse) Success200(w http.ResponseWriter, res []byte) {
 	return
 }
 
-// Success201 responses a success response for jwt authentication.
+// Success201 responses a success response for JSONResponse.
 func (ap *JSONResponse) Success201(w http.ResponseWriter, res []byte) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)

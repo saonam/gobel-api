@@ -19,7 +19,6 @@ func Dispatch(connMySQL *sql.DB, connRedis *redis.Client, logger usecases.Logger
 	publicMws := middleware.NewMiddlewares(asset.CORS)
 	privateMws := middleware.NewMiddlewares(asset.CORS, asset.Auth)
 
-	jwtAuthController := interfaces.NewJWTAuthController(connMySQL, logger)
 	authController := interfaces.NewAuthController(connMySQL, connRedis, logger)
 	postController := interfaces.NewPostController(connMySQL, logger)
 	commentController := interfaces.NewCommentController(connMySQL, logger)
@@ -39,8 +38,6 @@ func Dispatch(connMySQL *sql.DB, connRedis *redis.Client, logger usecases.Logger
 
 	r.GET("/tags", publicMws.Then(tagController.Index))
 	r.GET("/tags/:name", publicMws.Then(tagController.Show))
-
-	r.POST("/authenticate", publicMws.Then(jwtAuthController.SignIn))
 
 	r.POST("/signin", publicMws.Then(authController.SignIn))
 	//  TODO:

@@ -47,35 +47,6 @@ func (mws Middlewares) Then(h http.HandlerFunc) http.HandlerFunc {
 	return h
 }
 
-// Auth is a middleware  for authentication.
-// func Auth(next http.HandlerFunc) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		authorizationHeader := r.Header.Get("Authorization")
-// 		if authorizationHeader != "" {
-// 			bearerToken := strings.Split(authorizationHeader, " ")
-// 			if len(bearerToken) == 2 {
-// 				token, err := jwt.Parse(bearerToken[1], func(token *jwt.Token) (interface{}, error) {
-// 					if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-// 						return nil, fmt.Errorf("Unauthorized")
-// 					}
-// 					return []byte(os.Getenv("JWT_SECRET_KEY")), nil
-// 				})
-// 				if err != nil {
-// 					w.WriteHeader(http.StatusUnauthorized)
-// 					w.Write([]byte(err.Error()))
-// 					return
-// 				}
-// 				if token.Valid {
-// 					next.ServeHTTP(w, r)
-// 				}
-// 			} else {
-// 				w.WriteHeader(http.StatusUnauthorized)
-// 				w.Write([]byte("Unauthorized"))
-// 			}
-// 		}
-// 	}
-// }
-
 // AccessLog is a middelware for access log.
 // func (a *Asset) AccessLog(next http.HandlerFunc) http.HandlerFunc {
 // TODO:
