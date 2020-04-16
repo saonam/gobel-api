@@ -17,44 +17,22 @@ type AdminRepository struct {
 	ConnRedis *redis.Client
 }
 
-// FindByJWTAuth returns the entity identified by the given email.
-func (ar *AdminRepository) FindByJWTAuth(req usecases.RequestJWTAuthHandleJWTAuth) (admin domain.Admin, err error) {
-	const query = `
-		SELECT
-			id,
-			name,
-			email,
-			password
-		FROM
-			admins
-		WHERE
-			email = ?
-	`
-	row, err := ar.ConnMySQL.Query(query, req.Email)
-
-	defer row.Close()
-
+// FindIDByToken returns the entity identified by the given token.
+func (ar *AdminRepository) FindIDByToken(token string) (int, error) {
+	id, err := ar.ConnRedis.Get(token).Result()
 	if err != nil {
-		return
+		return 0, nil
 	}
 
-	var id int
-	var name string
-	var password string
-	var email string
-	row.Next()
-	if err = row.Scan(&id, &name, &email, &password); err != nil {
-		return
+	i, err := strconv.Atoi(id)
+	if err != nil {
+		return 0, nil
 	}
-	admin.ID = id
-	admin.Name = name
-	admin.Email = email
-	admin.Password = password
 
-	return
+	return i, nil
 }
 
-// FindByCredential returns the entity identified by the given email.
+// FindByCredential returns the entity identified by the given credential.
 func (ar *AdminRepository) FindByCredential(req usecases.RequestCredential) (admin domain.Admin, err error) {
 	const query = `
 		SELECT

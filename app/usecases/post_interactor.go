@@ -14,9 +14,10 @@ import (
 
 // A PostInteractor is an interactor for a post.
 type PostInteractor struct {
-	PostRepository PostRepository
-	JSONResponse   JSONResponse
-	Logger         Logger
+	AdminRepository AdminRepository
+	PostRepository  PostRepository
+	JSONResponse    JSONResponse
+	Logger          Logger
 }
 
 // HandleIndex returns a listing of the resource.
@@ -364,18 +365,9 @@ func (pi *PostInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.Requ
 
 	var req RequestPost
 
-	ja := &domain.JWTAuth{
-		Token: r.Header.Get("Authorization"),
-	}
-
-	claims, err := ja.Extract()
+	token := r.Header.Get("Authorization")
+	adminID, err := pi.AdminRepository.FindIDByToken(token)
 	if err != nil {
-		pi.Logger.LogError(err)
-		pi.JSONResponse.Error500(w)
-		return
-	}
-	adminID, ok := claims["id"].(float64)
-	if !ok {
 		pi.Logger.LogError(err)
 		pi.JSONResponse.Error500(w)
 		return
@@ -413,18 +405,9 @@ func (pi *PostInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http.Req
 
 	var req RequestPost
 
-	ja := &domain.JWTAuth{
-		Token: r.Header.Get("Authorization"),
-	}
-
-	claims, err := ja.Extract()
+	token := r.Header.Get("Authorization")
+	adminID, err := pi.AdminRepository.FindIDByToken(token)
 	if err != nil {
-		pi.Logger.LogError(err)
-		pi.JSONResponse.Error500(w)
-		return
-	}
-	adminID, ok := claims["id"].(float64)
-	if !ok {
 		pi.Logger.LogError(err)
 		pi.JSONResponse.Error500(w)
 		return

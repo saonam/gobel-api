@@ -20,7 +20,7 @@ func Dispatch(connMySQL *sql.DB, connRedis *redis.Client, logger usecases.Logger
 	privateMws := middleware.NewMiddlewares(asset.CORS, asset.Auth)
 
 	authController := interfaces.NewAuthController(connMySQL, connRedis, logger)
-	postController := interfaces.NewPostController(connMySQL, logger)
+	postController := interfaces.NewPostController(connMySQL, connRedis, logger)
 	commentController := interfaces.NewCommentController(connMySQL, logger)
 	categoryController := interfaces.NewCategoryController(connMySQL, logger)
 	tagController := interfaces.NewTagController(connMySQL, logger)
