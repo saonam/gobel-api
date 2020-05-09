@@ -38,7 +38,7 @@ func (d *DB) GetConnRedis() (*redis.Client, error) {
 	dataSourceName := fmt.Sprintf("%s:%s", os.Getenv("REDIS_HOST"), os.Getenv("REDIS_PORT"))
 	conn := redis.NewClient(&redis.Options{
 		Addr:     dataSourceName,
-		Password: "",
+		Password: os.Getenv("REDIS_PASSWORD"),
 		DB:       0,
 	})
 
