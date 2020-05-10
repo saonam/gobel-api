@@ -27,8 +27,14 @@ func NewAuthController(connMySQL *sql.DB, connRedis *redis.Client, logger usecas
 	}
 }
 
-// SignIn sign in with a credential.
+// SignIn signs in with a credential.
 func (ac *AuthController) SignIn(w http.ResponseWriter, r *http.Request) {
 	ac.AuthInteractor.HandleSignIn(w, r)
+	return
+}
+
+// SignOut signs out.
+func (ac *AuthController) SignOut(w http.ResponseWriter, r *http.Request) {
+	ac.AuthInteractor.HandleSignOut(w, r)
 	return
 }

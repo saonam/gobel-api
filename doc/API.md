@@ -53,80 +53,84 @@ Refered to [cryptlex/rest-api-response-format](https://github.com/cryptlex/rest-
       - [Endpoint](#endpoint-9)
       - [Path Parameters](#path-parameters-5)
 - [Private API](#private-api)
-    - [Get all posts](#get-all-posts)
+  - [Authentication](#authentication-1)
+    - [Remove credentials](#remove-credentials)
       - [Endpoint](#endpoint-10)
       - [Header](#header-1)
+    - [Get all posts](#get-all-posts)
+      - [Endpoint](#endpoint-11)
+      - [Header](#header-2)
       - [Query Parameters](#query-parameters-3)
     - [Get the specified post by id](#get-the-specified-post-by-id)
-      - [Endpoint](#endpoint-11)
+      - [Endpoint](#endpoint-12)
       - [Path Parameters](#path-parameters-6)
     - [Store a newly comment](#store-a-newly-comment-1)
-      - [Endpoint](#endpoint-12)
+      - [Endpoint](#endpoint-13)
       - [Request bodies](#request-bodies-2)
     - [Store a newly post](#store-a-newly-post)
-      - [Endpoint](#endpoint-13)
-      - [Header](#header-2)
-      - [Request bodies](#request-bodies-3)
-    - [Update the specified post](#update-the-specified-post)
       - [Endpoint](#endpoint-14)
       - [Header](#header-3)
+      - [Request bodies](#request-bodies-3)
+    - [Update the specified post](#update-the-specified-post)
+      - [Endpoint](#endpoint-15)
+      - [Header](#header-4)
       - [Query Parameters](#query-parameters-4)
       - [Request bodies](#request-bodies-4)
     - [Remove the specified post](#remove-the-specified-post)
-      - [Endpoint](#endpoint-15)
-      - [Header](#header-4)
-      - [Query Parameters](#query-parameters-5)
-    - [Get all comments](#get-all-comments)
       - [Endpoint](#endpoint-16)
       - [Header](#header-5)
+      - [Query Parameters](#query-parameters-5)
+    - [Get all comments](#get-all-comments)
+      - [Endpoint](#endpoint-17)
+      - [Header](#header-6)
       - [Query Parameters](#query-parameters-6)
     - [Get the specified comment by id](#get-the-specified-comment-by-id)
-      - [Endpoint](#endpoint-17)
+      - [Endpoint](#endpoint-18)
       - [Path Parameters](#path-parameters-7)
   - [Update the specified comment status](#update-the-specified-comment-status)
-      - [Endpoint](#endpoint-18)
-      - [Header](#header-6)
+      - [Endpoint](#endpoint-19)
+      - [Header](#header-7)
       - [Query Parameters](#query-parameters-7)
       - [Request bodies](#request-bodies-5)
     - [Get all categories](#get-all-categories-1)
-      - [Endpoint](#endpoint-19)
-      - [Header](#header-7)
+      - [Endpoint](#endpoint-20)
+      - [Header](#header-8)
       - [Query Parameters](#query-parameters-8)
     - [Get the specified category by id](#get-the-specified-category-by-id)
-      - [Endpoint](#endpoint-20)
+      - [Endpoint](#endpoint-21)
       - [Path Parameters](#path-parameters-8)
     - [Get all tags](#get-all-tags-1)
-      - [Endpoint](#endpoint-21)
-      - [Header](#header-8)
+      - [Endpoint](#endpoint-22)
+      - [Header](#header-9)
       - [Query Parameters](#query-parameters-9)
     - [Get the specified tag by id](#get-the-specified-tag-by-id)
-      - [Endpoint](#endpoint-22)
+      - [Endpoint](#endpoint-23)
       - [Path Parameters](#path-parameters-9)
     - [Store a newly category](#store-a-newly-category)
-      - [Endpoint](#endpoint-23)
-      - [Header](#header-9)
-      - [Request bodies](#request-bodies-6)
-    - [Update the specified category](#update-the-specified-category)
       - [Endpoint](#endpoint-24)
       - [Header](#header-10)
+      - [Request bodies](#request-bodies-6)
+    - [Update the specified category](#update-the-specified-category)
+      - [Endpoint](#endpoint-25)
+      - [Header](#header-11)
       - [Query Parameters](#query-parameters-10)
       - [Request bodies](#request-bodies-7)
     - [Remove the specified category](#remove-the-specified-category)
-      - [Endpoint](#endpoint-25)
-      - [Header](#header-11)
-      - [Query Parameters](#query-parameters-11)
-    - [Store a newly tag](#store-a-newly-tag)
       - [Endpoint](#endpoint-26)
       - [Header](#header-12)
-      - [Request bodies](#request-bodies-8)
-    - [Update the specified tag](#update-the-specified-tag)
+      - [Query Parameters](#query-parameters-11)
+    - [Store a newly tag](#store-a-newly-tag)
       - [Endpoint](#endpoint-27)
       - [Header](#header-13)
+      - [Request bodies](#request-bodies-8)
+    - [Update the specified tag](#update-the-specified-tag)
+      - [Endpoint](#endpoint-28)
+      - [Header](#header-14)
       - [Query Parameters](#query-parameters-12)
       - [Request bodies](#request-bodies-9)
     - [Remove the specified tag](#remove-the-specified-tag)
-      - [Endpoint](#endpoint-28)
-      - [Header](#header-14)
+      - [Endpoint](#endpoint-29)
+      - [Header](#header-15)
       - [Query Parameters](#query-parameters-13)
 
 ## Root Endpoint
@@ -441,6 +445,7 @@ Private API is closed api that does required authentication.
 
 | Method |           Endpoint            |             Description              |
 | :----- | :---------------------------- | :----------------------------------- |
+| POST   | /signout                      | Remove credentials.                  |
 | GET    | /private/posts                | Get all posts.                       |
 | GET    | /private/posts/:id            | Get the specified post by id.        |
 | POST   | /private/posts                | Store a newly post.                  |
@@ -460,18 +465,28 @@ Private API is closed api that does required authentication.
 | PATCH  | /private//tags/:id            | Update the specified tag.            |
 | DELETE | /private//tags/:id            | Remove the specified tag.            |
 
+## Authentication
+### Remove credentials
+#### Endpoint
+`POST /signout`
+
+#### Header
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
+
 ### Get all posts
 #### Endpoint
 `GET /private/posts`
 
 #### Header
-|         Name         |            Description            |        Example        |
-| :------------------- | :-------------------------------- | :-------------------- |
-| Authorization        | An bearer token for authorization | Bearer abcd.efgh.ijkl |
-| Pagination-Count     | A count of records                | 100                   |
-| Pagination-PageCount | A count of page                   | 10                    |
-| Pagination-Page      | A current page number             | 5                     |
-| Pagination-Limit     | A limit of number per page        | 10                    |
+|         Name         |            Description            |                   Example                   |
+| :------------------- | :-------------------------------- | :------------------------------------------ |
+| Authorization        | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
+| Pagination-Count     | A count of records                | 100                                         |
+| Pagination-PageCount | A count of page                   | 10                                          |
+| Pagination-Page      | A current page number             | 5                                           |
+| Pagination-Limit     | A limit of number per page        | 10                                          |
 
 #### Query Parameters
 | Name  |  Type   | Required |       Description        |
@@ -504,9 +519,9 @@ Private API is closed api that does required authentication.
 `POST /private/posts`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Request bodies
 ```json
@@ -534,9 +549,9 @@ Private API is closed api that does required authentication.
 `PATCH /private/posts/:id`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name | Type | Required |   Description    |
@@ -569,9 +584,9 @@ Private API is closed api that does required authentication.
 `DELETE /private/posts/:id`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name | Type | Required |   Description    |
@@ -610,9 +625,9 @@ Private API is closed api that does required authentication.
 `PATCH /private/comments/:id/status`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name |  Type   | Required |     Description     |
@@ -685,9 +700,9 @@ Private API is closed api that does required authentication.
 `POST /private/categories`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Request bodies
 ```json
@@ -701,9 +716,9 @@ Private API is closed api that does required authentication.
 `PATCH /private/categories/:id`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name | Type | Required |     Description      |
@@ -722,9 +737,9 @@ Private API is closed api that does required authentication.
 `PATCH /private/categories/:id`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name | Type | Required |     Description      |
@@ -736,9 +751,9 @@ Private API is closed api that does required authentication.
 `POST /private/tags`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Request bodies
 ```json
@@ -752,9 +767,9 @@ Private API is closed api that does required authentication.
 `PATCH /private/tags/:id`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name | Type | Required |   Description   |
@@ -773,9 +788,9 @@ Private API is closed api that does required authentication.
 `DELETE /private/tags/:id`
 
 #### Header
-|     Name      |            Description            |        Example        |
-| :------------ | :-------------------------------- | :-------------------- |
-| Authorization | An bearer token for authorization | Bearer abcd.efgh.ijkl |
+|     Name      |            Description            |                   Example                   |
+| :------------ | :-------------------------------- | :------------------------------------------ |
+| Authorization | An bearer token for authorization | Bearer e856e7bd-2572-4890-b9e0-a79ea09cd431 |
 
 #### Query Parameters
 | Name | Type | Required |   Description   |

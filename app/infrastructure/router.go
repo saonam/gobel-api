@@ -40,8 +40,8 @@ func Dispatch(connMySQL *sql.DB, connRedis *redis.Client, logger usecases.Logger
 	r.GET("/tags/:name", publicMws.Then(tagController.Show))
 
 	r.POST("/signin", publicMws.Then(authController.SignIn))
-	//  TODO:
-	// r.POST("/signout", publicMws.Then(authController.SignOut))
+
+	r.POST("/private/signin", privateMws.Then(authController.SignOut))
 
 	r.GET("/private/posts", privateMws.Then(postController.IndexPrivate))
 	r.GET("/private/posts/:id", privateMws.Then(postController.ShowPrivate))

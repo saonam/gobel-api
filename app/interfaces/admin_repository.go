@@ -69,12 +69,21 @@ func (ar *AdminRepository) FindByCredential(req usecases.RequestCredential) (adm
 	return
 }
 
-// SaveSessionByID saves session by the given id.
-func (ar *AdminRepository) SaveSessionByID(id int) (token string, err error) {
+// SaveLoginSessionByID saves login session by the given user id.
+func (ar *AdminRepository) SaveLoginSessionByID(userID int) (token string, err error) {
 	token = uuid.NewV4().String()
-	if err := ar.ConnRedis.Set(token, strconv.Itoa(id), 3600*24*7*time.Second).Err(); err != nil {
+	if err := ar.ConnRedis.Set(token, strconv.Itoa(userID), 3600*24*7*time.Second).Err(); err != nil {
 		return "", err
 	}
 
 	return token, nil
+}
+
+// RemoveLoginSession removes login session by token.
+func (ar *AdminRepository) RemoveLoginSession(token string) error {
+	if err := ar.ConnRedis.Del(token).Err(); err != nil {
+		return err
+	}
+
+	return nil
 }

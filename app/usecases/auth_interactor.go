@@ -49,8 +49,24 @@ func (ai *AuthInteractor) HandleSignIn(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := ai.AdminRepository.SaveSessionByID(admin.ID)
+	token, err := ai.AdminRepository.SaveLoginSessionByID(admin.ID)
 	if err != nil {
+		ai.Logger.LogError(err)
+		ai.JSONResponse.Error500(w)
+		return
+	}
+
+	ai.JSONResponse.Success200(w, []byte(token))
+	return
+}
+
+// HandleSignOut signs out.
+func (ai *AuthInteractor) HandleSignOut(w http.ResponseWriter, r *http.Request) {
+	ai.Logger.LogAccess(r)
+
+	token := r.Header.Get("Authorization")
+
+	if err := ai.AdminRepository.RemoveLoginSession(token); err != nil {
 		ai.Logger.LogError(err)
 		ai.JSONResponse.Error500(w)
 		return

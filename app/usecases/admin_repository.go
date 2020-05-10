@@ -6,5 +6,6 @@ import "github.com/bmf-san/gobel-api/app/domain"
 type AdminRepository interface {
 	FindByCredential(req RequestCredential) (domain.Admin, error)
 	FindIDByToken(token string) (int, error)
-	SaveSessionByID(id int) (string, error)
+	SaveLoginSessionByID(userID int) (string, error)
+	RemoveLoginSession(token string) error
 }
