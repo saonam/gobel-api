@@ -1,11 +1,8 @@
 package infrastructure
 
 import (
-	"context"
 	"log"
-	"net/http"
 	"os"
-	"time"
 
 	"github.com/bmf-san/gobel-api/app/usecases"
 	"github.com/pkg/errors"
@@ -49,47 +46,10 @@ func NewLogger() usecases.Logger {
 	return &Logger{}
 }
 
+// TODO: create LogXXX？
 // LogError writes a log for an error log.
 func (l *Logger) LogError(e error) {
 	set(os.Stderr)
-	write()
-}
-
-// LogAccess writes a log for an access log.
-func (l *Logger) LogAccess(r *http.Request) {
-	set(os.Stdout)
-
-	startTime := time.Now()
-	writer := &LoggingWriter{
-		ResponseWriter: rw,
-		logRecord: LogRecord{
-			Time:          startTime.UTC(),
-			Ip:            ip,
-			Method:        r.Method,
-			Uri:           r.RequestURI,
-			Username:      username,
-			Protocol:      r.Proto,
-			Host:          r.Host,
-			Status:        0,
-			Size:          0,
-			ElapsedTime:   time.Duration(0),
-			RequestHeader: r.Header,
-		},
-	}
-
-	if h.logBefore {
-		writer.SetCustomLogRecord("at", "before")
-		h.logger.LogContext(r.Context(), writer.logRecord)
-	}
-
-	ctx := context.WithValue(r.Context(), ctxLoggerKey, writer)
-	r = r.WithContext(ctx)
-	h.handler.ServeHTTP(writer, r)
-	finishTime := time.Now()
-
-	writer.logRecord.Time = finishTime.UTC()
-	writer.logRecord.ElapsedTime = finishTime.Sub(startTime)
-
 	write()
 }
 
