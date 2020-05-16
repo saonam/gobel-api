@@ -22,8 +22,6 @@ type CommentInteractor struct {
 
 // HandleIndexPrivate returns a listing of the resource.
 func (ci *CommentInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -89,8 +87,6 @@ func (ci *CommentInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.R
 
 // HandleShowPrivate display the specified resource.
 func (ci *CommentInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		ci.Logger.LogError(err)
@@ -121,8 +117,6 @@ func (ci *CommentInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Re
 
 // HandleStore stores a newly created resource in storage.
 func (ci *CommentInteractor) HandleStore(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ci.Logger.LogError(err)
@@ -163,8 +157,6 @@ func (ci *CommentInteractor) HandleStore(w http.ResponseWriter, r *http.Request)
 
 // HandleUpdateStatusPrivate updates the specified resource in storage.
 func (ci *CommentInteractor) HandleUpdateStatusPrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ci.Logger.LogError(err)

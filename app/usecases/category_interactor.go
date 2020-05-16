@@ -21,8 +21,6 @@ type CategoryInteractor struct {
 
 // HandleIndex returns a listing of the resource.
 func (ci *CategoryInteractor) HandleIndex(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -88,8 +86,6 @@ func (ci *CategoryInteractor) HandleIndex(w http.ResponseWriter, r *http.Request
 
 // HandleIndexPrivate returns a listing of the resource.
 func (ci *CategoryInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -155,8 +151,6 @@ func (ci *CategoryInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.
 
 // HandleShow display the specified resource.
 func (ci *CategoryInteractor) HandleShow(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	name := goblin.GetParam(r.Context(), "name")
 
 	var category domain.Category
@@ -182,8 +176,6 @@ func (ci *CategoryInteractor) HandleShow(w http.ResponseWriter, r *http.Request)
 
 // HandleShowPrivate display the specified resource.
 func (ci *CategoryInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		ci.Logger.LogError(err)
@@ -214,8 +206,6 @@ func (ci *CategoryInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.R
 
 // HandleStorePrivate stores a newly created resource in storage.
 func (ci *CategoryInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ci.Logger.LogError(err)
@@ -245,8 +235,6 @@ func (ci *CategoryInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.
 
 // HandleUpdatePrivate updates the specified resource in storage.
 func (ci *CategoryInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ci.Logger.LogError(err)
@@ -283,8 +271,6 @@ func (ci *CategoryInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http
 
 // HandleDestroyPrivate removes the specified resource from storage.
 func (ci *CategoryInteractor) HandleDestroyPrivate(w http.ResponseWriter, r *http.Request) {
-	ci.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		ci.Logger.LogError(err)

@@ -48,9 +48,13 @@ func (mws Middlewares) Then(h http.HandlerFunc) http.HandlerFunc {
 }
 
 // AccessLog is a middelware for access log.
-// func (a *Asset) AccessLog(next http.HandlerFunc) http.HandlerFunc {
-// TODO:
-// }
+func (a *Asset) AccessLog(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		a.logger.LogAccess(r)
+
+		next.ServeHTTP(w, r)
+	}
+}
 
 // Auth is a middleware for authentication.
 func (a *Asset) Auth(next http.HandlerFunc) http.HandlerFunc {

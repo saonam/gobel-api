@@ -22,8 +22,6 @@ type PostInteractor struct {
 
 // HandleIndex returns a listing of the resource.
 func (pi *PostInteractor) HandleIndex(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -89,8 +87,6 @@ func (pi *PostInteractor) HandleIndex(w http.ResponseWriter, r *http.Request) {
 
 // HandleIndexByCategory returns a listing of the resource.
 func (pi *PostInteractor) HandleIndexByCategory(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -158,8 +154,6 @@ func (pi *PostInteractor) HandleIndexByCategory(w http.ResponseWriter, r *http.R
 
 // HandleIndexByTag returns a listing of the resource.
 func (pi *PostInteractor) HandleIndexByTag(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -227,8 +221,6 @@ func (pi *PostInteractor) HandleIndexByTag(w http.ResponseWriter, r *http.Reques
 
 // HandleIndexPrivate returns a listing of the resource.
 func (pi *PostInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -295,8 +287,6 @@ func (pi *PostInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.Requ
 
 // HandleShow display the specified resource.
 func (pi *PostInteractor) HandleShow(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	title := goblin.GetParam(r.Context(), "title")
 
 	var post domain.Post
@@ -322,8 +312,6 @@ func (pi *PostInteractor) HandleShow(w http.ResponseWriter, r *http.Request) {
 
 // HandleShowPrivate display the specified resource.
 func (pi *PostInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		pi.Logger.LogError(err)
@@ -354,8 +342,6 @@ func (pi *PostInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Reque
 
 // HandleStorePrivate stores a newly created resource in storage.
 func (pi *PostInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		pi.Logger.LogError(err)
@@ -394,8 +380,6 @@ func (pi *PostInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.Requ
 
 // HandleUpdatePrivate updates the specified resource in storage.
 func (pi *PostInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		pi.Logger.LogError(err)
@@ -440,8 +424,6 @@ func (pi *PostInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http.Req
 
 // HandleDestroyPrivate removes the specified resource from storage.
 func (pi *PostInteractor) HandleDestroyPrivate(w http.ResponseWriter, r *http.Request) {
-	pi.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		pi.Logger.LogError(err)

@@ -18,8 +18,6 @@ type AuthInteractor struct {
 
 // HandleSignIn sign in with a credential.
 func (ai *AuthInteractor) HandleSignIn(w http.ResponseWriter, r *http.Request) {
-	ai.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ai.Logger.LogError(err)
@@ -62,8 +60,6 @@ func (ai *AuthInteractor) HandleSignIn(w http.ResponseWriter, r *http.Request) {
 
 // HandleSignOut signs out.
 func (ai *AuthInteractor) HandleSignOut(w http.ResponseWriter, r *http.Request) {
-	ai.Logger.LogAccess(r)
-
 	token := r.Header.Get("Authorization")
 
 	if err := ai.AdminRepository.RemoveLoginSession(token); err != nil {

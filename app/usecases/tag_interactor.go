@@ -21,8 +21,6 @@ type TagInteractor struct {
 
 // HandleIndex returns a listing of the resource.
 func (ti *TagInteractor) HandleIndex(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -88,8 +86,6 @@ func (ti *TagInteractor) HandleIndex(w http.ResponseWriter, r *http.Request) {
 
 // HandleIndexPrivate returns a listing of the resource.
 func (ti *TagInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	const defaultPage = 1
 	const defaultLimit = 10
 
@@ -155,8 +151,6 @@ func (ti *TagInteractor) HandleIndexPrivate(w http.ResponseWriter, r *http.Reque
 
 // HandleShow display the specified resource.
 func (ti *TagInteractor) HandleShow(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	name := goblin.GetParam(r.Context(), "name")
 
 	var tag domain.Tag
@@ -182,8 +176,6 @@ func (ti *TagInteractor) HandleShow(w http.ResponseWriter, r *http.Request) {
 
 // HandleShowPrivate display the specified resource.
 func (ti *TagInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		ti.Logger.LogError(err)
@@ -214,8 +206,6 @@ func (ti *TagInteractor) HandleShowPrivate(w http.ResponseWriter, r *http.Reques
 
 // HandleStorePrivate stores a newly created resource in storage.
 func (ti *TagInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ti.Logger.LogError(err)
@@ -245,8 +235,6 @@ func (ti *TagInteractor) HandleStorePrivate(w http.ResponseWriter, r *http.Reque
 
 // HandleUpdatePrivate updates the specified resource in storage.
 func (ti *TagInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		ti.Logger.LogError(err)
@@ -283,8 +271,6 @@ func (ti *TagInteractor) HandleUpdatePrivate(w http.ResponseWriter, r *http.Requ
 
 // HandleDestroyPrivate removes the specified resource from storage.
 func (ti *TagInteractor) HandleDestroyPrivate(w http.ResponseWriter, r *http.Request) {
-	ti.Logger.LogAccess(r)
-
 	id, err := strconv.Atoi(goblin.GetParam(r.Context(), "id"))
 	if err != nil {
 		ti.Logger.LogError(err)
