@@ -33,6 +33,17 @@ services:
       - seccomp:unconfined
     networks:
       - gobel_link
+  nginx:
+    container_name: "gobel-nginx"
+    build:
+        context: "./nginx"
+        dockerfile: "Dockerfile"
+    ports:
+      - "80:80"
+    networks:
+      - gobel_link
+    depends_on:
+      - app
   redis:
     container_name: "gobel-redis"
     env_file: ".env"
