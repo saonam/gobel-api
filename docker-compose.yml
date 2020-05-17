@@ -15,7 +15,7 @@ services:
     depends_on:
       - mysql
   mysql:
-    container_name: "gobel-mysql"
+    container_name: "gobel-api-mysql"
     env_file: ".env"
     build:
         context: "./mysql"
@@ -34,7 +34,7 @@ services:
     networks:
       - gobel_link
   nginx:
-    container_name: "gobel-nginx"
+    container_name: "gobel-api-nginx"
     build:
         context: "./nginx"
         dockerfile: "Dockerfile"
@@ -45,7 +45,7 @@ services:
     depends_on:
       - app
   redis:
-    container_name: "gobel-redis"
+    container_name: "gobel-api-redis"
     env_file: ".env"
     build:
         context: "./redis"
@@ -57,7 +57,7 @@ services:
     networks:
       - gobel_link
   redis-insight:
-    container_name: "gobel-redis-insight"
+    container_name: "gobel-api-redis-insight"
     env_file: ".env"
     build:
         context: "./redis-insight"
