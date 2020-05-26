@@ -15,7 +15,7 @@ import (
 // Dispatch handle routing
 func Dispatch(connMySQL *sql.DB, connRedis *redis.Client, logger usecases.Logger) {
 	asset := middleware.NewAsset(connRedis, logger)
-	// TODO: access log middleware
+
 	publicMws := middleware.NewMiddlewares(asset.AccessLog, asset.CORS)
 	privateMws := middleware.NewMiddlewares(asset.AccessLog, asset.CORS, asset.Auth)
 
